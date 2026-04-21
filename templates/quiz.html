@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+{% block title %}Quiz {{ q_index }} — {{ app_info.title }}{% endblock %}
+{% block page_kind %}quiz{% endblock %}
+
+{% block content %}
+<div class="mb-3">
+  <span class="badge rounded-pill proto-step-pill">Quiz · {{ q_index }} / {{ total_questions }}</span>
+  <span class="ms-2 small text-muted">Drag into the center box, then Next.</span>
+</div>
+
+<div class="proto-panel quiz-card">
+  <div class="d-flex justify-content-between align-items-start gap-2 mb-2">
+    <h1 class="h4 mb-0 flex-grow-1">Question {{ q_index }}</h1>
+    {% if question.tips %}
+    <button type="button" class="btn btn-sm btn-outline-secondary flex-shrink-0 quiz-tips-btn" id="btn-quiz-tips" aria-expanded="false" aria-controls="quiz-tips-panel">Tips</button>
+    {% endif %}
+  </div>
+  {% if question.tips %}
+  <div id="quiz-tips-panel" class="quiz-tips-panel d-none border rounded-3 p-3 mb-3 small" role="region" aria-label="Hint for this question">
+    <div class="quiz-tips-panel__inner">{{ question.tips | safe }}</div>
+  </div>
+  {% endif %}
+  <p class="quiz-prompt mb-1">{{ question.prompt | safe }}</p>
+  {% if question.subprompt %}
+  <p class="text-secondary small mb-4">{{ question.subprompt | safe }}</p>
+  {% endif %}
+
+  <div
+    id="quiz-drag-app"
+    class="quiz-drag-root"
+    data-question-id="{{ question.id }}"
+    data-total="{{ total_questions }}"
+    data-quiz-mode="{{ question.mode | default('') }}"
+  >
+    <input type="hidden" id="quiz-answer-value" value="" autocomplete="off">
+
+    {% if question.mode in ['notation_to_key', 'key_to_notation'] and question.stimulus %}
+    <div class="row g-3 g-lg-4 align-items-start quiz-three-col">
+      <div class="col-md-5 col-lg-4 quiz-stimulus-col">
+        <p class="small fw-semibold mb-2">
+          {% if question.mode == 'notation_to_key' %}
+          Notation
+          {% else %}
+          Keyboard
+          {% endif %}
+        </p>
+        <div class="quiz-stimulus-frame rounded-3 border bg-white p-2 text-center">
+          <img
+            src="{{ question.stimulus.image }}"
+            alt=""
+            class="quiz-stimulus-img img-fluid"
+          >
+        </div>
+      </div>
+      <div class="col-md-3 col-lg-3 quiz-drop-col">
+        <p class="small fw-semibold mb-2">Your answer</p>
+        <div
+          id="drop-zone"
+          class="drop-zone"
+          data-drop-target="1"
+        >
+          <div class="drop-zone__placeholder" id="drop-placeholder">Drop here</div>
+          <div class="drop-zone__filled d-none" id="drop-filled" aria-live="polite"></div>
+        </div>
+        <button type="button" class="btn btn-link btn-sm px-0" id="btn-clear-drop">Clear selection</button>
+      </div>
+      <div class="col-md-4 col-lg-5">
+        <p class="small fw-semibold mb-2">
+          {% if question.mode == 'notation_to_key' %}
+          Keys
+          {% else %}
+          Notation choices
+          {% endif %}
+        </p>
+        <div class="row g-2 drag-bank" id="drag-bank">
+          {% for t in question.draggables %}
+          <div class="col-6">
+            <div
+              class="quiz-tile"
+              draggable="true"
+              data-tile-id="{{ t.id }}"
+              data-img="{{ t.image }}"
+              data-label="{{ t.short_label }}"
+            >
+              <img src="{{ t.image }}" alt="" class="quiz-tile-img">
+              {% if '_image_note' in t and t['_image_note'] %}
+              <span class="placeholder-annotation d-block">{{ t['_image_note'] }}</span>
+              {% endif %}
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    {% else %}
+    <div class="row g-4 align-items-start">
+      <div class="col-lg-5">
+        <p class="small fw-semibold mb-2">Drag the correct picture into the box</p>
+        <div id="drop-zone" class="drop-zone" data-drop-target="1">
+          <div class="drop-zone__placeholder" id="drop-placeholder">Drop here</div>
+          <div class="drop-zone__filled d-none" id="drop-filled" aria-live="polite"></div>
+        </div>
+        <button type="button" class="btn btn-link btn-sm px-0" id="btn-clear-drop">Clear selection</button>
+      </div>
+      <div class="col-lg-7">
+        <p class="small fw-semibold mb-2">Tiles</p>
+        <div class="row g-2 drag-bank" id="drag-bank">
+          {% for t in question.draggables %}
+          <div class="col-6 col-md-4">
+            <div
+              class="quiz-tile"
+              draggable="true"
+              data-tile-id="{{ t.id }}"
+              data-img="{{ t.image }}"
+              data-label="{{ t.short_label }}"
+            >
+              <img src="{{ t.image }}" alt="" class="quiz-tile-img">
+              {% if '_image_note' in t and t['_image_note'] %}
+              <span class="placeholder-annotation d-block">{{ t['_image_note'] }}</span>
+              {% endif %}
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    <div class="d-flex flex-wrap gap-2 mt-4 pt-3 border-top">
+      <a class="btn btn-outline-secondary" href="{{ url_for('learn', lesson_id=2) }}" title="Match numbers with keys">Review</a>
+      {% if q_index > 1 %}
+      <a class="btn btn-outline-secondary" href="{{ url_for('quiz', question_id=q_index - 1) }}">Back</a>
+      {% endif %}
+      <button type="button" class="btn btn-accent" id="btn-quiz-next">Next</button>
+    </div>
+  </div>
+</div>
+{% endblock %}

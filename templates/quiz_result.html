@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Quiz results — {{ app_info.title }}{% endblock %}
+{% block page_kind %}quiz_result{% endblock %}
+
+{% block content %}
+<p class="small text-muted mb-3">Quiz complete</p>
+
+<div class="proto-panel result-card text-center">
+  <div class="p-2 p-md-4">
+    <h1 class="h3 mb-2">Your score</h1>
+    <p class="display-5 fw-bold result-score mb-1">{{ score }} / {{ total }}</p>
+    <p class="text-muted mb-4">
+      {% if score == total %}
+      Correct! You scored {{ score }}/{{ total }}.
+      {% else %}
+      You answered {{ score }} out of {{ total }} correctly. Review the items below.
+      {% endif %}
+    </p>
+    <a class="btn btn-accent me-2" href="{{ url_for('home') }}">Return to the homepage</a>
+    <button type="button" class="btn btn-outline-secondary" id="btn-retake-quiz">Retake quiz</button>
+  </div>
+</div>
+
+<div class="proto-panel mt-4">
+  <div class="p-4">
+    <h2 class="h5 mb-3">Breakdown</h2>
+    <ul class="list-group list-group-flush result-breakdown">
+      {% for row in details %}
+      <li class="list-group-item px-0">
+        <div class="d-flex justify-content-between align-items-start gap-2">
+          <span class="small quiz-prompt-inline">{{ row.prompt | safe }}</span>
+          {% if row.is_correct %}
+          <span class="badge bg-success">Correct</span>
+          {% else %}
+          <span class="badge bg-secondary">Review</span>
+          {% endif %}
+        </div>
+        <p class="small text-muted mb-0 mt-1">Your choice: <strong>{{ row.chosen_label }}</strong> · Correct: <strong>{{ row.correct_label }}</strong></p>
+        {% if not row.is_correct %}
+        <p class="small text-danger mb-0 mt-2">{{ row.feedback_wrong }}</p>
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endblock %}
