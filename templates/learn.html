@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% block title %}Lesson {{ lesson_index }} — {{ app_info.title }}{% endblock %}
+{% block page_kind %}learn{% endblock %}
+
+{% block content %}
+<div class="mb-3 proto-learn-top">
+  <span class="badge rounded-pill proto-step-pill">Learning · {{ lesson_index }} / {{ total_lessons }}</span>
+</div>
+
+<div class="row learn-layout g-4">
+  <div class="col-lg-8">
+    <div class="proto-panel learn-main">
+      <h1 class="h3 mb-2 proto-lesson-title">{{ lesson.heading }}</h1>
+      {% if lesson.subheading %}
+      <p class="text-secondary mb-3">{{ lesson.subheading }}</p>
+      {% endif %}
+
+      {% if lesson.bullets %}
+      <ul class="learn-bullets mb-4">
+        {% for b in lesson.bullets %}
+        <li>{{ b }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+
+      {% if lesson.match_rows %}
+      <div class="table-responsive mb-3">
+        <table class="table table-bordered align-middle text-center match-table mb-0">
+          <thead>
+            <tr>
+              {% for row in lesson.match_rows %}
+              <th>
+                <a class="match-num-link" href="{{ url_for('learn', lesson_id=loop.index + 2) }}" title="Open {{ row.syllable }} lesson">{{ row.num }}</a>
+              </th>
+              {% endfor %}
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              {% for row in lesson.match_rows %}<td>{{ row.syllable }}</td>{% endfor %}
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      {% endif %}
+
+      {% if lesson.detail %}
+      <div class="piano-note-block">
+        <p class="display-6 text-center mb-3">{{ lesson.detail.syllable }}</p>
+        <p class="mb-2">The number <strong>{{ lesson.detail.number }}</strong></p>
+        <p class="mb-0">{{ lesson.detail.body }}</p>
+      </div>
+      {% endif %}
+
+      <p class="mt-4 mb-3"><span class="fw-semibold">Instructions:</span> {{ lesson.instructions }}</p>
+
+      <div class="d-flex flex-wrap gap-2 learn-nav pt-2 border-top">
+        {% if lesson_index > 1 %}
+        <a class="btn btn-outline-secondary" href="{{ url_for('learn', lesson_id=lesson_index - 1) }}">Return</a>
+        {% endif %}
+        {% if lesson_index < total_lessons %}
+        <a class="btn btn-accent" href="{{ url_for('learn', lesson_id=lesson_index + 1) }}">Next</a>
+        {% else %}
+        <a class="btn btn-accent" href="{{ url_for('quiz', question_id=1) }}" id="link-go-quiz-fresh">Go to quiz</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-4">
+    <div class="learn-rail">
+      {% if lesson.aside %}
+      <div class="proto-aside-tips mb-3">
+        {% for line in lesson.aside %}
+        <div class="proto-aside-line"><span class="proto-aside-num">{{ loop.index }}.</span> {{ line }}</div>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      {% if lesson.figure_image %}
+      <figure class="proto-lesson-figure mb-3">
+        <img src="{{ lesson.figure_image }}" alt="" class="img-fluid rounded-2 border w-100">
+        <figcaption class="placeholder-annotation mt-2">{{ lesson.get('_figure_image_note', '') }}</figcaption>
+      </figure>
+      {% endif %}
+
+      {% if lesson.listen_audio %}
+      <div class="proto-audio-box mb-2">
+        <p class="small fw-semibold mb-1">Listen</p>
+        <audio class="w-100" controls preload="none" src="{{ lesson.listen_audio }}"></audio>
+        <p class="placeholder-annotation mb-0">{{ lesson.get('_listen_audio_note', '') }}</p>
+      </div>
+      {% endif %}
+
+      {% if not lesson.aside and not lesson.figure_image and not lesson.listen_audio %}
+      <div class="proto-panel text-secondary small">Tips rail (optional content from JSON).</div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+<input type="hidden" id="learn-lesson-id" value="{{ lesson_index }}">
+{% endblock %}
