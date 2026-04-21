@@ -1,0 +1,242 @@
+{
+  "app": {
+    "title": "The Heart Follows the Melody",
+    "subtitle": "Learn numbered notation and piano keys",
+    "user_goal": "For beginners and choir members who need to map numbered notation (1–7) to piano keys and simple melodies.",
+    "home_notation_image": "/static/audio/complete.png",
+    "_home_notation_note": "Twinkle, Twinkle, Little Star — full numbered notation",
+    "home_hero_video": "/static/audio/little-star.mp4",
+    "_home_hero_video_note": "Little Start Performance"
+  },
+  "media": {
+    "sample_audio": "/static/audio/little-star.wav",
+    "_sample_audio_note": "Little Start Audio"
+  },
+  "lessons": [
+    {
+      "id": 1,
+      "heading": "First Lesson!",
+      "subheading": "Seven numbers correspond to seven Solfege syllables",
+      "bullets": [
+        "Look at the black keys.",
+        "Find two black keys together.",
+        "The white key just to the left of them is Do.",
+        "Then it goes: Do, Re, Mi, Fa, Sol, La, Si, Do."
+      ],
+      "aside": [
+        "The “do” located at the center of the piano keyboard is called Middle C.",
+        "On a standard 88-key piano, it is the fourth C."
+      ],
+      "figure_image": "/static/audio/keyboard.png",
+      "_figure_image_note": "Keyboard schematic diagram",
+      "instructions": "Read the steps, then go to the next page to match numbers with keys."
+    },
+    {
+      "id": 2,
+      "heading": "Match the numbers with the keys",
+      "subheading": "Seven numbers correspond to seven Solfege syllables",
+      "match_rows": [
+        { "num": "1", "syllable": "do" },
+        { "num": "2", "syllable": "re" },
+        { "num": "3", "syllable": "mi" },
+        { "num": "4", "syllable": "fa" },
+        { "num": "5", "syllable": "sol" },
+        { "num": "6", "syllable": "la" },
+        { "num": "7", "syllable": "si" }
+      ],
+      "figure_image": "/static/audio/keyboard.png",
+      "_figure_image_note": "Keyboard schematic diagram",
+      "instructions": "Click a number in the top row of the table to open that note's lesson (1 → do, 2 → re, …, 7 → si)."
+    },
+    {
+      "id": 3,
+      "heading": "do",
+      "detail": {
+        "syllable": "do",
+        "number": 1,
+        "body": "The number 1 corresponds to the 1st white key in the scale you are studying, which is the sound of do."
+      },
+      "figure_image": "/static/audio/do.png",
+      "_figure_image_note": "do",
+      "listen_audio": "/static/audio/little-star.wav",
+      "_listen_audio_note": "本地 little-star.wav；若每个音单独文件可改为 /static/audio/do.wav 等",
+      "instructions": "Use Return to go back to the table, or Next to continue to re."
+    },
+    {
+      "id": 4,
+      "heading": "re",
+      "detail": {
+        "syllable": "re",
+        "number": 2,
+        "body": "The number 2 corresponds to the 2nd white key on the piano keyboard in this octave pattern, which is the sound of re."
+      },
+      "figure_image": "/static/audio/re.png",
+      "_figure_image_note": "re",
+      "listen_audio": "/static/audio/little-star.wav",
+      "_listen_audio_note": "本地 little-star.wav（可与各课相同或换成 re 专用文件）",
+      "instructions": "Continue through the scale one note at a time."
+    },
+    {
+      "id": 5,
+      "heading": "mi",
+      "detail": {
+        "syllable": "mi",
+        "number": 3,
+        "body": "The number 3 corresponds to the 3rd white key on the keyboard in this pattern, which is the sound of mi."
+      },
+      "figure_image": "/static/audio/mi.png",
+      "_figure_image_note": "mi",
+      "listen_audio": "/static/audio/little-star.wav",
+      "_listen_audio_note": "本地 little-star.wav",
+      "instructions": "Notice how each step follows the white keys in order."
+    },
+    {
+      "id": 6,
+      "heading": "fa",
+      "detail": {
+        "syllable": "fa",
+        "number": 4,
+        "body": "The number 4 corresponds to the 4th white key on the piano keyboard, which is the sound of fa."
+      },
+      "figure_image": "/static/audio/fa.png",
+      "_figure_image_note": "fa",
+      "listen_audio": "/static/audio/little-star.wav",
+      "_listen_audio_note": "本地 little-star.wav",
+      "instructions": "You will use this mapping in the quiz."
+    },
+    {
+      "id": 7,
+      "heading": "sol",
+      "detail": {
+        "syllable": "sol",
+        "number": 5,
+        "body": "The number 5 corresponds to the 5th white key on the piano keyboard, which is the sound of sol."
+      },
+      "figure_image": "/static/audio/sol.png",
+      "_figure_image_note": "sol",
+      "listen_audio": "/static/audio/little-star.wav",
+      "_listen_audio_note": "本地 little-star.wav",
+      "instructions": "Keep the order do–re–mi–fa–sol–la–si in mind."
+    },
+    {
+      "id": 8,
+      "heading": "la",
+      "detail": {
+        "syllable": "la",
+        "number": 6,
+        "body": "The number 6 corresponds to the 6th white key on the piano keyboard, which is the sound of la."
+      },
+      "figure_image": "/static/audio/la.png",
+      "_figure_image_note": "la",
+      "listen_audio": "/static/audio/little-star.wav",
+      "_listen_audio_note": "本地 little-star.wav",
+      "instructions": "Almost at the top of the scale."
+    },
+    {
+      "id": 9,
+      "heading": "si",
+      "detail": {
+        "syllable": "si",
+        "number": 7,
+        "body": "The number 7 corresponds to the 7th white key on the piano keyboard, which is the sound of si."
+      },
+      "figure_image": "/static/audio/si.png",
+      "_figure_image_note": "si",
+      "listen_audio": "/static/audio/little-star.wav",
+      "_listen_audio_note": "本地 little-star.wav",
+      "instructions": "After this lesson, try the quiz to test what you learned."
+    },
+    {
+      "id": 10,
+      "heading": "Synthesis — review",
+      "subheading": "Test what you have learned",
+      "bullets": [
+        "Numbers 1–7 map to do, re, mi, fa, sol, la, si.",
+        "Pay attention to the order of the white keys.",
+        "Middle C helps you find your place on the keyboard."
+      ],
+      "figure_image": "/static/audio/keyboard.png",
+      "_figure_image_note": "Keyboard overview",
+      "instructions": "When you are ready, open Quiz from the navigation bar and answer five questions."
+    }
+  ],
+  "quiz": [
+    {
+      "id": 1,
+      "mode": "notation_to_key",
+      "prompt": "Look at the <strong>notation</strong> on the left. The digit in the <strong>red box</strong> is the one to match to a white key.",
+      "subprompt": "Drag the correct <strong>keyboard</strong> (one highlighted key) into the center box.",
+      "stimulus": {
+        "image": "/static/audio/21-1.png",
+        "_filename_hint": "21-1 → digits 2,1 with 1 boxed → answer do"
+      },
+      "correct": "tile_do",
+      "feedback_wrong": "The boxed number is <strong>1</strong>, which is the key <strong>do</strong>.",
+      "draggables": [
+        { "id": "tile_do", "short_label": "Key do (1)", "image": "/static/audio/do.png" },
+        { "id": "tile_re", "short_label": "Key re (2)", "image": "/static/audio/re.png" },
+        { "id": "tile_mi", "short_label": "Key mi (3)", "image": "/static/audio/mi.png" },
+        { "id": "tile_sol", "short_label": "Key sol (5)", "image": "/static/audio/sol.png" }
+      ]
+    },
+    {
+      "id": 2,
+      "mode": "key_to_notation",
+      "prompt": "The <strong>keyboard</strong> on the left shows one key highlighted in red.",
+      "subprompt": "Drag the <strong>notation</strong> card that contains the <strong>same number</strong> as that key (sol = 5).",
+      "stimulus": { "image": "/static/audio/sol.png" },
+      "correct": "n_15",
+      "feedback_wrong": "Sol is <strong>5</strong> — pick the notation image that includes the digit 5.",
+      "draggables": [
+        { "id": "n_15", "short_label": "Notation 15", "image": "/static/audio/15.png" },
+        { "id": "n_21", "short_label": "Notation 21", "image": "/static/audio/21.png" },
+        { "id": "n_32", "short_label": "Notation 32", "image": "/static/audio/32.png" },
+        { "id": "n_43", "short_label": "Notation 43", "image": "/static/audio/43.png" }
+      ]
+    },
+    {
+      "id": 3,
+      "mode": "key_to_notation",
+      "prompt": "The <strong>keyboard</strong> on the left shows one key highlighted in red.",
+      "subprompt": "Drag the <strong>notation</strong> that contains the same number as that key (fa = 4).",
+      "stimulus": { "image": "/static/audio/fa.png" },
+      "correct": "n_43",
+      "feedback_wrong": "Fa is <strong>4</strong> — pick the notation that includes the digit 4.",
+      "draggables": [
+        { "id": "n_15", "short_label": "Notation 15", "image": "/static/audio/15.png" },
+        { "id": "n_21", "short_label": "Notation 21", "image": "/static/audio/21.png" },
+        { "id": "n_32", "short_label": "Notation 32", "image": "/static/audio/32.png" },
+        { "id": "n_43", "short_label": "Notation 43", "image": "/static/audio/43.png" }
+      ]
+    },
+    {
+      "id": 4,
+      "mode": "key_only",
+      "tips": "In this lesson, <strong>re</strong> is <strong>number 2</strong> — the <strong>second</strong> white key in the scale. Find the keyboard strip where that key is highlighted in red (not the 1st, 3rd, or 5th key).",
+      "prompt": "Four <strong>keyboard</strong> fragments are shown — each has one white key highlighted in red.",
+      "subprompt": "Drag the picture that shows <strong>re (2)</strong> into the box.",
+      "correct": "tile_re",
+      "feedback_wrong": "Re is the <strong>2nd</strong> white key in the scale — pick the keyboard with that key highlighted.",
+      "draggables": [
+        { "id": "tile_re", "short_label": "Key re (2)", "image": "/static/audio/re.png" },
+        { "id": "tile_do", "short_label": "Key do (1)", "image": "/static/audio/do.png" },
+        { "id": "tile_mi", "short_label": "Key mi (3)", "image": "/static/audio/mi.png" },
+        { "id": "tile_sol", "short_label": "Key sol (5)", "image": "/static/audio/sol.png" }
+      ]
+    },
+    {
+      "id": 5,
+      "mode": "key_only",
+      "prompt": "Which keyboard picture shows <strong>la (6)</strong>?",
+      "subprompt": "Drag the correct key image into the box.",
+      "correct": "tile_la",
+      "feedback_wrong": "La is the <strong>6th</strong> white key in this pattern.",
+      "draggables": [
+        { "id": "tile_la", "short_label": "Key la (6)", "image": "/static/audio/la.png" },
+        { "id": "tile_sol", "short_label": "Key sol (5)", "image": "/static/audio/sol.png" },
+        { "id": "tile_si", "short_label": "Key si (7)", "image": "/static/audio/si.png" },
+        { "id": "tile_fa", "short_label": "Key fa (4)", "image": "/static/audio/fa.png" }
+      ]
+    }
+  ]
+}
