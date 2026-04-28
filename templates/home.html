@@ -50,25 +50,8 @@
     </div>
   </div>
 </section>
-
-<div class="row g-4">
-  <div class="col-lg-7">
-    <div class="proto-panel h-100">
-      <h2 class="h6 text-uppercase text-muted mb-3">User goal</h2>
-      <p class="mb-0 proto-body">{{ app_info.user_goal }}</p>
-    </div>
-  </div>
-  <div class="col-lg-5">
-    <div class="proto-panel h-100">
-      <h2 class="h6 text-uppercase text-muted mb-3">Listen (placeholder)</h2>
-      {% if media['sample_audio'] | default('') %}
-      <audio id="home-sample-audio" class="w-100 mb-2" controls preload="metadata" src="{{ media['sample_audio'] }}"></audio>
-      {% else %}
-      <p class="small text-muted mb-2">No sample audio URL in <code>static/content.json</code> yet.</p>
-      {% endif %}
-      <p class="placeholder-annotation mb-0">{{ media['_sample_audio_note'] | default('') }}</p>
-    </div>
-  </div>
-</div>
+{% if media['sample_audio'] | default('') %}
+<audio id="home-sample-audio" preload="metadata" src="{{ media['sample_audio'] }}" style="display:none"></audio>
+{% endif %}
 </div>
 {% endblock %}
