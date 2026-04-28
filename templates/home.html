@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}Home — {{ app_info.title }}{% endblock %}
+{% block page_kind %}home{% endblock %}
+
+{% block content %}
+<div class="page-home">
+<section class="proto-home-stage mb-5">
+  <div class="row align-items-center g-4">
+    <div class="col-lg-6 order-lg-1">
+      <h1 class="proto-title mb-3">
+        <span class="d-block">The Heart</span>
+        <span class="d-block">Follows the Melody</span>
+      </h1>
+      <p class="lead text-secondary mb-4">{{ app_info.subtitle }}</p>
+      <button type="button" id="btn-start-learning" class="btn btn-accent btn-lg px-5 py-3 proto-start-btn">Start learning</button>
+    </div>
+    <div class="col-lg-6 order-lg-2 d-flex flex-column gap-3">
+      {% if app_info['home_notation_image'] | default('') %}
+      <figure class="proto-home-notation mb-0">
+        <img
+          src="{{ app_info['home_notation_image'] }}"
+          alt="Full numbered notation"
+          class="img-fluid rounded-3 shadow-sm w-100 border bg-white"
+        >
+        {% if app_info.get('_home_notation_note') %}
+        <figcaption class="placeholder-annotation mt-2 text-white-50">{{ app_info.get('_home_notation_note') }}</figcaption>
+        {% endif %}
+      </figure>
+      {% endif %}
+      <figure class="proto-home-figure mb-0">
+        {% if app_info['home_hero_video'] | default('') %}
+        <video
+          id="home-hero-video"
+          class="proto-home-video rounded-3 shadow-sm w-100"
+          controls
+          playsinline
+          preload="metadata"
+          {% if app_info['home_hero_poster'] | default('') %}poster="{{ app_info['home_hero_poster'] }}"{% endif %}
+        >
+          <source src="{{ app_info['home_hero_video'] }}" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        {% elif app_info['home_hero_image'] | default('') %}
+        <img src="{{ app_info.home_hero_image }}" alt="" class="img-fluid rounded-3 shadow-sm proto-home-img">
+        {% else %}
+        <div class="proto-home-media-placeholder rounded-3 border border-light border-opacity-25 text-white-50 small p-4 text-center">Set <code class="text-white">home_hero_video</code> in content.json (e.g. under <code class="text-white">static/audio/</code>) or use <code class="text-white">home_hero_image</code>.</div>
+        {% endif %}
+        <figcaption class="placeholder-annotation mt-2">{{ app_info.get('_home_hero_video_note') or app_info.get('_home_hero_image_note') }}</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+{% if media['sample_audio'] | default('') %}
+<audio id="home-sample-audio" preload="metadata" src="{{ media['sample_audio'] }}" style="display:none"></audio>
+{% endif %}
+</div>
+{% endblock %}
