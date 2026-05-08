@@ -30,6 +30,10 @@ def load_content():
 def tile_label(question, tile_id):
     if not tile_id:
         return "—"
+    # Support sequence answers like "tile_re_a,tile_re_b,tile_do"
+    if isinstance(tile_id, str) and "," in tile_id:
+        parts = [p.strip() for p in tile_id.split(",") if p.strip()]
+        return " → ".join(tile_label(question, p) for p in parts) if parts else "—"
     for d in question.get("draggables", []):
         if d.get("id") == tile_id:
             return d.get("short_label", tile_id)
