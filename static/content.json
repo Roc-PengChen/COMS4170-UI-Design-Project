@@ -213,6 +213,7 @@
       "mode": "notation_seq_to_keys",
       "prompt": "The numbered musical notation on the left is <strong>221</strong>.",
       "subprompt": "Drag the piano keys into the center boxes in order (re → re → do).",
+      "tips": "<strong>Tip:</strong> Read the digits left to right. <strong>2 = re</strong>, so the first two boxes are re; <strong>1 = do</strong>, so the last box is do.",
       "stimulus": { "notation": "221" },
       "correct": "tile_re_a,tile_re_b,tile_do",
       "feedback_wrong": "The correct order for <strong>221</strong> is <strong>re → re → do</strong>.",
