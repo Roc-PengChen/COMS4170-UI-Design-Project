@@ -34,39 +34,56 @@
   >
     <input type="hidden" id="quiz-answer-value" value="" autocomplete="off">
 
-    {% if question.mode in ['notation_to_key', 'key_to_notation'] and question.stimulus %}
+    {% if question.mode in ['notation_to_key', 'key_to_notation', 'notation_seq_to_keys'] and question.stimulus %}
     <div class="row g-3 g-lg-4 align-items-start quiz-three-col">
       <div class="col-md-5 col-lg-4 quiz-stimulus-col">
         <p class="small fw-semibold mb-2">
-          {% if question.mode == 'notation_to_key' %}
+          {% if question.mode == 'notation_to_key' or question.mode == 'notation_seq_to_keys' %}
           Notation
           {% else %}
           Keyboard
           {% endif %}
         </p>
         <div class="quiz-stimulus-frame rounded-3 border bg-white p-2 text-center">
+          {% if question.stimulus.notation %}
+          <div class="quiz-notation-text" aria-label="Notation">{{ question.stimulus.notation }}</div>
+          {% else %}
           <img
             src="{{ question.stimulus.image }}"
             alt=""
             class="quiz-stimulus-img img-fluid"
           >
+          {% endif %}
         </div>
       </div>
       <div class="col-md-3 col-lg-3 quiz-drop-col">
         <p class="small fw-semibold mb-2">Your answer</p>
-        <div
-          id="drop-zone"
-          class="drop-zone"
-          data-drop-target="1"
-        >
+        {% if question.mode == 'notation_seq_to_keys' %}
+        <div class="drop-seq" id="drop-seq" aria-label="Answer sequence">
+          <div class="drop-slot drop-zone" data-slot="0">
+            <div class="drop-zone__placeholder">1</div>
+            <div class="drop-zone__filled d-none" aria-live="polite"></div>
+          </div>
+          <div class="drop-slot drop-zone" data-slot="1">
+            <div class="drop-zone__placeholder">2</div>
+            <div class="drop-zone__filled d-none" aria-live="polite"></div>
+          </div>
+          <div class="drop-slot drop-zone" data-slot="2">
+            <div class="drop-zone__placeholder">3</div>
+            <div class="drop-zone__filled d-none" aria-live="polite"></div>
+          </div>
+        </div>
+        {% else %}
+        <div id="drop-zone" class="drop-zone" data-drop-target="1">
           <div class="drop-zone__placeholder" id="drop-placeholder">Drop here</div>
           <div class="drop-zone__filled d-none" id="drop-filled" aria-live="polite"></div>
         </div>
+        {% endif %}
         <button type="button" class="btn btn-link btn-sm px-0" id="btn-clear-drop">Clear selection</button>
       </div>
       <div class="col-md-4 col-lg-5">
         <p class="small fw-semibold mb-2">
-          {% if question.mode == 'notation_to_key' %}
+          {% if question.mode == 'notation_to_key' or question.mode == 'notation_seq_to_keys' %}
           Keys
           {% else %}
           Notation choices

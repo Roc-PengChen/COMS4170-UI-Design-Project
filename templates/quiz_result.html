@@ -37,7 +37,7 @@
         </div>
         <p class="small text-muted mb-0 mt-1">Your choice: <strong>{{ row.chosen_label }}</strong> · Correct: <strong>{{ row.correct_label }}</strong></p>
         {% if not row.is_correct %}
-        <p class="small text-danger mb-0 mt-2">{{ row.feedback_wrong }}</p>
+        <p class="small text-danger mb-0 mt-2">{{ row.feedback_wrong | safe }}</p>
         {% endif %}
       </li>
       {% endfor %}

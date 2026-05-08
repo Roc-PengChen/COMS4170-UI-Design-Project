@@ -87,11 +87,10 @@
       return;
     }
 
-    var $drop = $('#drop-zone');
-    var $ph = $('#drop-placeholder');
-    var $filled = $('#drop-filled');
     var $hidden = $('#quiz-answer-value');
+    var mode = String($root.data('quiz-mode') || '');
     var currentId = null;
+    var seqIds = [null, null, null];
 
     shuffleChildren($('#drag-bank'));
 
@@ -100,12 +99,32 @@
       $tile.removeClass('is-placed').attr('draggable', true);
     }
 
+    function markTilePlaced(id) {
+      var $tile = $('.quiz-tile[data-tile-id="' + id + '"]');
+      $tile.addClass('is-placed').attr('draggable', false);
+    }
+
     function clearDrop() {
+      $hidden.val('');
+      if (mode === 'notation_seq_to_keys') {
+        seqIds.forEach(function (id) {
+          if (id) {
+            restoreTile(id);
+          }
+        });
+        seqIds = [null, null, null];
+        $('.drop-slot').each(function () {
+          $(this).find('.drop-zone__filled').addClass('d-none').empty();
+          $(this).find('.drop-zone__placeholder').removeClass('d-none');
+        });
+        return;
+      }
       if (currentId) {
         restoreTile(currentId);
       }
       currentId = null;
-      $hidden.val('');
+      var $filled = $('#drop-filled');
+      var $ph = $('#drop-placeholder');
       $filled.addClass('d-none').empty();
       $ph.removeClass('d-none');
     }
@@ -121,11 +140,41 @@
       currentId = id;
       $hidden.val(id);
       var img = $tile.find('img').attr('src');
+      var $filled = $('#drop-filled');
+      var $ph = $('#drop-placeholder');
       $filled.empty();
       $('<img>', { src: img, alt: '', class: 'drop-preview-img' }).appendTo($filled);
       $filled.removeClass('d-none');
       $ph.addClass('d-none');
-      $tile.addClass('is-placed').attr('draggable', false);
+      markTilePlaced(id);
+    }
+
+    function placeTileToSlot(id, slotIdx) {
+      var idx = parseInt(slotIdx, 10);
+      if (!isFinite(idx) || idx < 0 || idx > 2) {
+        return;
+      }
+      var $tile = $('.quiz-tile[data-tile-id="' + id + '"]');
+      if (!$tile.length || $tile.hasClass('is-placed')) {
+        return;
+      }
+
+      var prev = seqIds[idx];
+      if (prev && prev !== id) {
+        restoreTile(prev);
+      }
+      seqIds[idx] = id;
+      $hidden.val(seqIds.map(function (x) { return x || ''; }).join(','));
+
+      var $slot = $('.drop-slot[data-slot="' + idx + '"]');
+      var $filled = $slot.find('.drop-zone__filled');
+      var $ph = $slot.find('.drop-zone__placeholder');
+      var img = $tile.find('img').attr('src');
+      $filled.empty();
+      $('<img>', { src: img, alt: '', class: 'drop-preview-img' }).appendTo($filled);
+      $filled.removeClass('d-none');
+      $ph.addClass('d-none');
+      markTilePlaced(id);
     }
 
     $(document).on('dragstart', '.quiz-tile:not(.is-placed)', function (e) {
@@ -136,33 +185,62 @@
       }
     });
 
-    $drop.on('dragenter', function (e) {
-      e.preventDefault();
-      $drop.addClass('drag-over');
-    });
-    $drop.on('dragleave', function () {
-      $drop.removeClass('drag-over');
-    });
-    $drop.on('dragover', function (e) {
-      e.preventDefault();
-      if (e.originalEvent && e.originalEvent.dataTransfer) {
-        e.originalEvent.dataTransfer.dropEffect = 'move';
-      }
-    });
-
-    $drop.on('drop', function (e) {
-      e.preventDefault();
-      $drop.removeClass('drag-over');
-      var dt = e.originalEvent && e.originalEvent.dataTransfer;
-      if (!dt) {
-        return;
-      }
-      var id = dt.getData('text/plain');
-      if (!id) {
-        return;
-      }
-      placeTile(id);
-    });
+    if (mode === 'notation_seq_to_keys') {
+      $(document).on('dragenter', '.drop-slot', function (e) {
+        e.preventDefault();
+        $(this).addClass('drag-over');
+      });
+      $(document).on('dragleave', '.drop-slot', function () {
+        $(this).removeClass('drag-over');
+      });
+      $(document).on('dragover', '.drop-slot', function (e) {
+        e.preventDefault();
+        if (e.originalEvent && e.originalEvent.dataTransfer) {
+          e.originalEvent.dataTransfer.dropEffect = 'move';
+        }
+      });
+      $(document).on('drop', '.drop-slot', function (e) {
+        e.preventDefault();
+        $(this).removeClass('drag-over');
+        var dt = e.originalEvent && e.originalEvent.dataTransfer;
+        if (!dt) {
+          return;
+        }
+        var id = dt.getData('text/plain');
+        if (!id) {
+          return;
+        }
+        placeTileToSlot(id, $(this).data('slot'));
+      });
+    } else {
+      var $drop = $('#drop-zone');
+      $drop.on('dragenter', function (e) {
+        e.preventDefault();
+        $drop.addClass('drag-over');
+      });
+      $drop.on('dragleave', function () {
+        $drop.removeClass('drag-over');
+      });
+      $drop.on('dragover', function (e) {
+        e.preventDefault();
+        if (e.originalEvent && e.originalEvent.dataTransfer) {
+          e.originalEvent.dataTransfer.dropEffect = 'move';
+        }
+      });
+      $drop.on('drop', function (e) {
+        e.preventDefault();
+        $drop.removeClass('drag-over');
+        var dt = e.originalEvent && e.originalEvent.dataTransfer;
+        if (!dt) {
+          return;
+        }
+        var id = dt.getData('text/plain');
+        if (!id) {
+          return;
+        }
+        placeTile(id);
+      });
+    }
 
     $('#btn-clear-drop').on('click', function () {
       clearDrop();
@@ -172,7 +250,13 @@
       var qid = $root.data('question-id');
       var total = parseInt($root.data('total'), 10);
       var val = ($hidden.val() || '').trim();
-      if (!val) {
+      if (mode === 'notation_seq_to_keys') {
+        var parts = val.split(',').filter(function (p) { return p.trim().length > 0; });
+        if (parts.length < 3 || parts.some(function (p) { return !p; })) {
+          window.alert('Fill all three boxes in order before continuing.');
+          return;
+        }
+      } else if (!val) {
         window.alert('Drag one tile into the box before continuing.');
         return;
       }

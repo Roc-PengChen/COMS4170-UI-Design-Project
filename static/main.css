@@ -105,6 +105,74 @@ body {
   display: block;
   object-fit: contain;
 }
+
+/* Home — desktop: larger media + hero card fills viewport (no huge white band below) */
+@media (min-width: 992px) {
+  main.container:has(.page-home--compact) {
+    padding-bottom: 0.5rem !important;
+    margin-bottom: 0 !important;
+  }
+  .page-home--compact {
+    padding-top: 0.75rem;
+    min-height: calc(100dvh - 4.5rem);
+    display: flex;
+    flex-direction: column;
+  }
+  .page-home--compact .proto-home-stage {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: calc(100dvh - 5.75rem);
+    padding: 1.5rem 1.75rem;
+    box-sizing: border-box;
+  }
+  .page-home--compact .proto-home-stage .row {
+    width: 100%;
+    align-items: center;
+  }
+  .page-home--compact .proto-title {
+    font-size: clamp(1.65rem, 3vw, 2.2rem);
+    margin-bottom: 0.85rem !important;
+  }
+  .page-home--compact .lead {
+    font-size: 1.05rem;
+    margin-bottom: 1.1rem !important;
+  }
+  .page-home--compact .proto-start-btn {
+    padding: 0.65rem 2.25rem !important;
+    font-size: 1.05rem;
+  }
+  .page-home--compact .proto-home-notation img {
+    max-height: min(46vh, 520px);
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    object-position: top center;
+  }
+  .page-home--compact .proto-home-video {
+    max-height: min(52vh, 560px);
+  }
+  .page-home--compact .proto-home-stage .gap-3 {
+    gap: 1rem !important;
+  }
+  .page-home--compact .proto-home-figure .placeholder-annotation {
+    margin-top: 0.45rem !important;
+  }
+}
+
+@media (min-width: 992px) and (max-height: 720px) {
+  .page-home--compact .proto-home-notation img {
+    max-height: min(32vh, 360px);
+  }
+  .page-home--compact .proto-home-video {
+    max-height: min(38vh, 400px);
+  }
+  .page-home--compact .proto-home-stage {
+    min-height: calc(100dvh - 5rem);
+    padding: 1.15rem 1.35rem;
+  }
+}
 .proto-panel {
   background: var(--color-white);
   border: 1px solid #e2e8f0;
@@ -120,6 +188,42 @@ body {
   color: var(--color-base);
   font-weight: 600;
 }
+/* Learning — synthesis last page (centered column, prototype layout) */
+.learn-synthesis {
+  max-width: 42rem;
+}
+.learn-synthesis-panel {
+  padding: 2rem 1.75rem;
+}
+.learn-synthesis-title {
+  font-size: clamp(1.35rem, 3vw, 1.85rem);
+  font-weight: 800;
+  color: var(--color-dark-grey);
+}
+.learn-synthesis-bullets {
+  max-width: 36rem;
+  text-align: left;
+}
+.learn-synthesis-keyboard {
+  max-height: 220px;
+  width: auto;
+  object-fit: contain;
+}
+.learn-synthesis-instructions {
+  font-size: 0.95rem;
+  color: var(--color-dark-grey);
+}
+@media (max-width: 576px) {
+  .learn-synthesis-actions {
+    flex-direction: column;
+    align-items: stretch !important;
+  }
+  .learn-synthesis-actions .btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
 .learn-layout {
   align-items: flex-start;
 }
@@ -188,6 +292,13 @@ body {
   max-width: 100%;
   object-fit: contain;
 }
+.quiz-notation-text {
+  font-size: clamp(2.25rem, 5vw, 3.25rem);
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: var(--color-dark-grey);
+  font-variant-numeric: tabular-nums;
+}
 .quiz-drop-col .drop-zone {
   min-height: 140px;
 }
@@ -221,6 +332,18 @@ body {
 }
 .drop-zone__filled {
   width: 100%;
+}
+.drop-seq {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.6rem;
+}
+.drop-seq .drop-zone {
+  min-height: 92px;
+  padding: 0.5rem;
+}
+.drop-seq .drop-preview-img {
+  max-height: 70px;
 }
 .drop-preview-img {
   max-width: 100%;
